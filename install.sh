@@ -12,5 +12,5 @@ echo "DOCKER_WRAPPER_IMAGE=$DOCKER_WRAPPER_IMAGE sh ~/.bin/wrapper.sh python3 /s
 chmod +x ~/.bin/json-to-yaml
 
 # json to yaml
-echo "DOCKER_WRAPPER_IMAGE=$DOCKER_WRAPPER_IMAGE sh ~/.bin/wrapper.sh python3 /scripts/mod-dep/" > ~/.bin/mod-dep
+echo "DOCKER_WRAPPER_IMAGE=$DOCKER_WRAPPER_IMAGE sh ~/.bin/wrapper.sh python3 /scripts/mod-dep/ \$@" > ~/.bin/mod-dep
 chmod +x ~/.bin/mod-dep
