@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-service
+spec:
+  replicas: 3
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 10%
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: sample-service
+  template:
+    metadata:
+      labels:
+        app: sample-service
+        version: "1.0"
+    spec:
+      containers:
+        - name: sample-service
+          image: my-registry/sample-service:latest
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '700Mi'
+              cpu: '50m'
+            limits:
+              memory: '1Gi'
+              cpu: '1'
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /status/health
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            failureThreshold: 6
+          livenessProbe:
+            httpGet:
+              path: /status/info
+              port: http
+            initialDelaySeconds: 90
